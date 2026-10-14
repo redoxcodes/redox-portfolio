@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redox | Software built around real needs</title>
+<meta name="description" content="Redox builds bots, web apps and automation for individuals, creators and small teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#0c1226; --muted:#5a6275; --line:#e3e6f0; --soft:#f4f5ff; --accent:#3a3ae8; --accent-ink:#e9eaff;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+.logo{font-family:var(--serif);font-size:24px;font-weight:600;text-decoration:none;letter-spacing:-.01em}
+nav{display:flex;gap:26px;font-size:15px}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+
+.hero{padding:72px 0 64px;max-width:800px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7.4vw,72px);line-height:1.04;letter-spacing:-.03em;margin:0 0 26px}
+.hero p{font-size:19px;color:var(--muted);max-width:36em;margin:0 0 34px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:13px 22px;border-radius:10px;font:600 15px var(--sans);text-decoration:none;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn.ghost{border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.2vw,40px);letter-spacing:-.02em;line-height:1.15;margin:0}
+.sub{color:var(--muted);margin:0;font-size:15px}
+
+.offer{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px 32px}
+.offer h3{font-size:17px;font-weight:600;margin:0 0 8px}
+.offer p{margin:0;color:var(--muted);font-size:15px}
+
+/* flip cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px}
+.card{perspective:1400px}
+.inner{display:grid;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.75,.25,1)}
+.card.flipped .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;display:flex;flex-direction:column;min-height:330px;padding:28px;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{background:var(--soft);border:1px solid var(--line);cursor:pointer}
+.back{background:var(--ink);color:#fff;transform:rotateY(180deg)}
+.kind{font-size:14px;color:var(--muted);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#1f9d6b;display:inline-block}
+.front h3{font-family:var(--serif);font-weight:500;font-size:34px;letter-spacing:-.02em;line-height:1.1;margin:0 0 12px}
+.front .line{font-size:17px;color:#3a4157;margin:0 0 20px;max-width:24em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:auto 0 18px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid #d6daf0;border-radius:6px;padding:2px 9px;color:#3a4157;background:#fff}
+.turn{align-self:flex-start;font:600 14px var(--sans);background:none;border:0;padding:6px 0;color:var(--accent);cursor:pointer;border-bottom:1px solid currentColor}
+.back .turn{color:#fff}
+.back h4{font-size:13px;font-weight:600;color:#9aa3c4;margin:0 0 4px}
+.back p{margin:0 0 16px;font-size:15px;line-height:1.55;color:#e6e8f5}
+.back .turn{margin-top:auto}
+.go{display:inline-block;margin:0 0 18px;font-weight:600;font-size:15px;color:#fff;background:var(--accent);padding:9px 16px;border-radius:8px;text-decoration:none;width:max-content}
+.go:hover{background:#2b2bc7}
+.cta .front{background:#fff;border:1.5px dashed #bfc4f0}
+.cta .back{background:var(--accent)}
+.cta .back p{color:var(--accent-ink)}
+.cta .btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.cta .btns a{background:#fff;color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.step{padding:28px;border-right:1px solid var(--line)}
+.step:last-child{border-right:0}
+.step h3{font-size:17px;margin:0 0 8px;font-weight:600}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.step b{display:block;font-family:var(--serif);font-size:28px;font-weight:500;color:var(--accent);margin-bottom:8px;line-height:1}
+
+.contact{background:var(--ink);color:#fff;border-radius:20px;padding:56px 36px;margin:0 0 56px;border:0}
+.contact h2{color:#fff;max-width:14em;margin-bottom:12px}
+.contact p{color:#b8bfd6;margin:0 0 28px;max-width:32em}
+.contact .btn.primary{background:#fff;color:var(--ink);border-color:#fff}
+.contact .btn.primary:hover{background:var(--accent-ink);border-color:var(--accent-ink)}
+.contact .btn.ghost{border-color:#3a4157;color:#fff}
+.contact .btn.ghost:hover{border-color:#fff}
+.sec-contact{padding:0;border:0}
+footer{padding:0 0 44px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media (max-width:700px){
+  .step{border-right:0;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:0}
+  .contact{padding:40px 24px}
+  .face{padding:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .inner,.btn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="logo" href="#top">Redox</a>
+  <nav aria-label="Main">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <h1>Software built around what you actually need.</h1>
+    <p>I design and build bots, web apps and automation for individuals, creators and small teams. If a task is repetitive, manual or missing a tool, I can turn it into something that runs by itself.</p>
+    <div class="actions">
+      <a class="btn primary" data-link="telegram" href="#contact" target="_blank" rel="noopener">Discuss your project</a>
+      <a class="btn ghost" href="#work">See past work</a>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="head"><h2>What I can build for you</h2></div>
+    <div class="offer">
+      <div><h3>Bots and chat tools</h3><p>Telegram bots that verify members, answer questions, send alerts or manage a group without daily effort.</p></div>
+      <div><h3>Web apps and dashboards</h3><p>Sites with logins, databases and live data, from a simple tracker to a tool people pay to use.</p></div>
+      <div><h3>Personal automation</h3><p>Scripts that handle the boring parts of your day: tracking, cleanups, reminders and reports.</p></div>
+      <div><h3>Tools for creators</h3><p>Giveaway pickers, stream overlays and leaderboards that make a channel or community run smoothly.</p></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="head">
+      <h2>Past work</h2>
+      <p class="sub">Tap a card to see the problem and what I built.</p>
+    </div>
+
+    <div class="cards">
+
+      <article class="card" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind"><span class="dot"></span>Live &middot; Community platform</p>
+            <h3>The Conclave</h3>
+            <p class="line">Paid Telegram access, verified through X.</p>
+            <ul class="tags"><li>Node.js</li><li>Telegraf</li><li>Redis</li><li>X OAuth</li></ul>
+            <button class="turn" type="button" aria-label="Flip The Conclave card to read the details">See how it works</button>
+          </div>
+          <div class="face back">
+            <h4>The problem</h4>
+            <p>Selling access to a private group meant checking every subscriber by hand.</p>
+            <h4>What I built</h4>
+            <p>Members verify with X and receive a single-use invite that expires in 3 minutes. Lapsed subscribers are removed automatically each day. An admin panel inside Telegram and a 15-level XP system run the community, rescaled across 134 members without losing anyone's rank.</p>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind"><span class="dot"></span>Live &middot; Trading tool</p>
+            <h3>Crypto signal bot</h3>
+            <p class="line">A public track record for every call.</p>
+            <ul class="tags"><li>Node.js</li><li>Postgres</li><li>Solana</li><li>Telegram</li></ul>
+            <button class="turn" type="button" aria-label="Flip Crypto signal bot card to read the details">See how it works</button>
+          </div>
+          <div class="face back">
+            <h4>The problem</h4>
+            <p>Signal groups ask for trust but rarely show their results.</p>
+            <h4>What I built</h4>
+            <p>A bot that posts Solana memecoin and exchange signals and records every call, so members see the full history. It alerts when tracked wallets buy or sell, with the amount, market cap and contract address. Built to a client's spec.</p>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind"><span class="dot"></span>Live &middot; Monitoring</p>
+            <h3>gwa-tracker</h3>
+            <p class="line">Instant alerts when 54 accounts post.</p>
+            <ul class="tags"><li>Python</li><li>Playwright</li><li>Fly.io</li><li>Telegram API</li></ul>
+            <button class="turn" type="button" aria-label="Flip gwa-tracker card to read the details">See how it works</button>
+          </div>
+          <div class="face back">
+            <h4>The problem</h4>
+            <p>Spotting posts with certain keywords by scrolling is slow, and being late means missing out.</p>
+            <h4>What I built</h4>
+            <p>A watcher that checks 54 accounts on a schedule and sends subscribers a Telegram alert with a preview. When Cloudflare blocked the first setup, I moved it to Fly.io and split the accounts into batches to keep the session stable. Paid access uses 31-day tokens.</p>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind"><span class="dot"></span>Live &middot; Creator tool</p>
+            <h3>PickMe</h3>
+            <p class="line">Fair giveaways for live streams.</p>
+            <ul class="tags"><li>Node.js</li><li>Render</li><li>Kick</li><li>Twitch</li></ul>
+            <button class="turn" type="button" aria-label="Flip PickMe card to read the details">See how it works</button>
+          </div>
+          <div class="face back">
+            <h4>The problem</h4>
+            <p>Streamers pick giveaway winners by hand, and spam or fake accounts spoil the draw.</p>
+            <h4>What I built</h4>
+            <p>Viewers enter with a keyword in chat and get one entry each, however often they type it. The tool filters out fake accounts, favors people who stay in chat, and shows a live leaderboard on stream.</p>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind"><span class="dot"></span>Live &middot; Personal utility</p>
+            <h3>X unfollow helper</h3>
+            <p class="line">Tidy a following list safely, in batches.</p>
+            <ul class="tags"><li>JavaScript</li><li>Userscript</li><li>Vercel</li></ul>
+            <button class="turn" type="button" aria-label="Flip X unfollow helper card to read the details">See how it works</button>
+          </div>
+          <div class="face back">
+            <h4>The problem</h4>
+            <p>Cleaning up thousands of follows by hand takes hours, and the official API costs money.</p>
+            <h4>What I built</h4>
+            <p>A free userscript that unfollows in batches with a preview first, skips accounts that follow back, and keeps to daily limits so the account stays safe.</p>
+            <a class="go" href="https://unfollow-helper.vercel.app" target="_blank" rel="noopener">Try it yourself</a>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card cta" data-card>
+        <div class="inner">
+          <div class="face front">
+            <p class="kind">Your project</p>
+            <h3>What should I build next?</h3>
+            <p class="line">A bot, a site or a tool that saves you time. Tell me what it should do.</p>
+            <button class="turn" type="button" aria-label="Flip card to see how to reach me">Get in touch</button>
+          </div>
+          <div class="face back">
+            <h4 style="color:#d5d7ff">Let's talk</h4>
+            <p>Send a short message about what you need. I'll reply with how I would build it.</p>
+            <div class="btns">
+              <a data-link="telegram" href="#contact" target="_blank" rel="noopener">Telegram</a>
+              <a data-link="x" href="#contact" target="_blank" rel="noopener">X</a>
+            </div>
+            <button class="turn" type="button" aria-label="Flip back to the front of the card">Back</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="head"><h2>How we work together</h2></div>
+    <div class="steps">
+      <div class="step"><b>1</b><h3>You describe the need</h3><p>A few messages is enough. I ask only what I need to know and give you a clear scope.</p></div>
+      <div class="step"><b>2</b><h3>I build in the open</h3><p>You see working versions as I go, so nothing surprises you at the end.</p></div>
+      <div class="step"><b>3</b><h3>I launch and stay available</h3><p>It goes live on reliable hosting, and I fix issues and make changes after launch.</p></div>
+    </div>
+  </section>
+
+  <section class="sec-contact" id="contact">
+    <div class="contact">
+      <h2>Have something in mind?</h2>
+      <p>Whether it is a business tool or a personal one, send me a message and we can work out the simplest way to build it.</p>
+      <div class="actions">
+        <a class="btn primary" data-link="telegram" href="#contact" target="_blank" rel="noopener">Discuss your project</a>
+        <a class="btn ghost" data-link="x" href="#contact" target="_blank" rel="noopener">Follow on X</a>
+        <a class="btn ghost" data-link="github" href="#contact" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><span>&copy; <span id="yr"></span> Redox</span><span>Built and hosted by me.</span></footer>
+</div>
+
+<script>
+/* YOUR LINKS: change them here if they ever change */
+const LINKS = {
+  x:        "https://x.com/amredox?s=11",
+  telegram: "https://t.me/amredox",
+  github:   "https://github.com/redoxcodes"
+};
+document.querySelectorAll("[data-link]").forEach(function(a){ a.href = LINKS[a.dataset.link]; });
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* flip cards */
+function setFlip(card, on){
+  card.classList.toggle("flipped", on);
+  card.querySelector(".front").inert = on;
+  card.querySelector(".back").inert = !on;
+  var target = card.querySelector(on ? ".back .turn" : ".front .turn");
+  if(target) target.focus({preventScroll:true});
+}
+document.querySelectorAll("[data-card]").forEach(function(card){
+  card.querySelector(".back").inert = true;
+  card.querySelectorAll(".turn").forEach(function(b){
+    b.addEventListener("click", function(e){ e.stopPropagation(); setFlip(card, !card.classList.contains("flipped")); });
+  });
+  card.querySelector(".front").addEventListener("click", function(e){
+    if(!e.target.closest("button,a")) setFlip(card, true);
+  });
+});
+</script>
+</body>
+</html>
